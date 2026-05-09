@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Academics · KIIT-GPT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="main style.css"/>
+  <style>
+    /* ── Tab system ── */
+    .tab-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tab-btn {
+      padding: 9px 20px;
+      border-radius: 9px;
+      border: 1px solid var(--border2);
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--green-glow2);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Program table ── */
+    .prog-table { width: 100%; border-collapse: collapse; }
+    .prog-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .prog-table td {
+      padding: 14px 16px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .prog-table tr:hover td { background: var(--green-glow3); color: var(--text); }
+    .prog-table td:first-child { color: var(--text); font-weight: 500; }
+    .prog-tag {
+      display: inline-flex;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 11.5px;
+      font-weight: 500;
+      border: 1px solid #00e87a35;
+      color: var(--green);
+      background: var(--green-glow2);
+    }
+
+    /* ── Grade table ── */
+    .grade-row { display: flex; gap: 2px; margin-bottom: 2px; }
+    .grade-cell {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .grade-cell.header { font-weight: 700; font-size: 11px; letter-spacing: 0.06em; color: var(--text-dim); text-transform: uppercase; }
+    .grade-cell.grade-o { color: var(--green); font-weight: 700; }
+    .grade-cell.grade-a { color: #7bccff; }
+    .grade-cell.grade-b { color: var(--text); }
+    .grade-cell.grade-c { color: var(--text-muted); }
+    .grade-cell.grade-f { color: var(--red); }
+
+    /* ── Admission steps ── */
+    .step-cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .step-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 22px;
+      transition: all 0.2s;
+    }
+    .step-card:hover { border-color: var(--green); background: var(--green-glow3); }
+    .step-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #060b12;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-card-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .step-card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="home.html" class="nav-brand">KIIT<span>-GPT</span></a>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="about.html">About KIIT</a>
+    <a href="index.html">CHAT-BOT</a>
+    <a href="academic.html" class="active">Academics</a>
+    <a href="placements.html">Placements</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-cta"><a href="chat.html" class="btn btn-primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Open GPT</a></div>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="home.html">Home</a><a href="about.html">About KIIT</a><a href="academics.html">Academics</a><a href="placements.html">Placements</a><a href="contact.html">Contact</a><a href="chat.html" style="color:var(--green)">→ Open KIIT-GPT</a>
+</div>
+
+<!-- Hero -->
+<div class="page-hero">
+  <div class="page-hero-badge"><span class="pulse-dot"></span>ACADEMICS</div>
+  <h1 class="section-title fade-up" style="font-size:clamp(34px,4.5vw,56px); max-width:700px;">
+    Academic Programs &<br/><span style="color:var(--green)">Policies at KIIT</span>
+  </h1>
+  <p class="section-sub fade-up delay-1">Explore KIIT's 200+ programs, grading system, attendance policies, admission process, and research opportunities across 28 schools.</p>
+</div>
+
+<!-- Quick Facts -->
+<section class="section-sm" style="padding-top:0;">
+  <div class="grid-4 scroll-reveal">
+    <div class="stat-card"><div class="stat-num">200+</div><div class="stat-label">Programs</div></div>
+    <div class="stat-card"><div class="stat-num">28</div><div class="stat-label">Schools</div></div>
+    <div class="stat-card"><div class="stat-num">3K+</div><div class="stat-label">Faculty</div></div>
+    <div class="stat-card"><div class="stat-num">48</div><div class="stat-label">PhD Fellowships</div></div>
+  </div>
+</section>
+
+<div class="divider" style="margin:0 80px;"></div>
+
+<!-- Programs with tabs -->
+<section class="section">
+  <div class="section-label scroll-reveal">Programs</div>
+  <h2 class="section-title scroll-reveal">Find Your <span style="color:var(--green)">Program</span></h2>
+  <p class="section-sub scroll-reveal" style="margin-bottom:36px;">KIIT offers 34 undergraduate, 32 postgraduate, 10 integrated, and 11 PhD programs across diverse disciplines.</p>
+
+  <div class="tab-bar scroll-reveal" id="tabBar">
+    <button class="tab-btn active" data-tab="btech">B.Tech Engineering</button>
+    <button class="tab-btn" data-tab="mba">MBA / Management</button>
+    <button class="tab-btn" data-tab="law">Law</button>
+    <button class="tab-btn" data-tab="medical">Medical Sciences</button>
+    <button class="tab-btn" data-tab="other">Other Programs</button>
+  </div>
+
+  <!-- B.Tech -->
+  <div class="tab-panel active" id="tab-btech">
+    <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:var(--radius-lg); overflow:hidden;">
+      <table class="prog-table">
+        <thead><tr><th>Specialisation</th><th>Duration</th><th>Approx. Fee</th><th>Admission</th></tr></thead>
+        <tbody>
+          <tr><td>Computer Science &amp; Engineering</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Electronics &amp; Communication Engg.</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Mechanical Engineering</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Civil Engineering</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Electrical Engineering</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Chemical Engineering</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Biotechnology Engineering</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Computer Science (AI &amp; ML)</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Computer Science (Data Science)</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+          <tr><td>Computer Science (Cybersecurity)</td><td>4 Years</td><td>₹17–19 Lakhs</td><td><span class="prog-tag">KIITEE / JEE</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px; color:var(--text-dim); margin-top:12px;">* 18 total B.Tech specialisations available. Eligibility: 60%+ in PCM (12th), JEE / KIITEE score required.</p>
+  </div>
+
+  <!-- MBA -->
+  <div class="tab-panel" id="tab-mba">
+    <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:var(--radius-lg); overflow:hidden;">
+      <table class="prog-table">
+        <thead><tr><th>Program</th><th>Duration</th><th>Approx. Fee</th><th>Admission</th></tr></thead>
+        <tbody>
+          <tr><td>MBA (Business Analytics)</td><td>2 Years</td><td>₹8–12 Lakhs</td><td><span class="prog-tag">CAT/MAT/XAT</span></td></tr>
+          <tr><td>MBA (Operations &amp; Supply Chain)</td><td>2 Years</td><td>₹8–12 Lakhs</td><td><span class="prog-tag">CAT/MAT/XAT</span></td></tr>
+          <tr><td>MBA (Finance)</td><td>2 Years</td><td>₹8–12 Lakhs</td><td><span class="prog-tag">CAT/MAT/XAT</span></td></tr>
+          <tr><td>MBA (Marketing)</td><td>2 Years</td><td>₹8–12 Lakhs</td><td><span class="prog-tag">CAT/MAT/XAT</span></td></tr>
+          <tr><td>MBA (Rural Management)</td><td>2 Years</td><td>₹8–12 Lakhs</td><td><span class="prog-tag">CAT/MAT/CMAT</span></td></tr>
+          <tr><td>BBA</td><td>3 Years</td><td>₹5–8 Lakhs</td><td><span class="prog-tag">KIITEE MGT</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Law -->
+  <div class="tab-panel" id="tab-law">
+    <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:var(--radius-lg); overflow:hidden;">
+      <table class="prog-table">
+        <thead><tr><th>Program</th><th>Duration</th><th>Admission</th></tr></thead>
+        <tbody>
+          <tr><td>BA LLB (Hons.)</td><td>5 Years (Integrated)</td><td><span class="prog-tag">KLSAT / CLAT</span></td></tr>
+          <tr><td>B.Com LLB (Hons.)</td><td>5 Years (Integrated)</td><td><span class="prog-tag">KLSAT / CLAT</span></td></tr>
+          <tr><td>BBA LLB (Hons.)</td><td>5 Years (Integrated)</td><td><span class="prog-tag">KLSAT / CLAT</span></td></tr>
+          <tr><td>LLM</td><td>1 Year</td><td><span class="prog-tag">KLSAT / AILET</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px; color:var(--text-dim); margin-top:12px;">KIIT School of Law is ranked 11th in India by NIRF. Admission via KLSAT (KIIT Law School Admission Test) or CLAT.</p>
+  </div>
+
+  <!-- Medical -->
+  <div class="tab-panel" id="tab-medical">
+    <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:var(--radius-lg); overflow:hidden;">
+      <table class="prog-table">
+        <thead><tr><th>Program</th><th>Duration</th><th>Admission</th></tr></thead>
+        <tbody>
+          <tr><td>MBBS</td><td>5.5 Years</td><td><span class="prog-tag">NEET UG</span></td></tr>
+          <tr><td>BDS (Dental)</td><td>5 Years</td><td><span class="prog-tag">NEET UG</span></td></tr>
+          <tr><td>B.Sc. Nursing</td><td>4 Years</td><td><span class="prog-tag">KIITEE / NEET</span></td></tr>
+          <tr><td>MD / MS (PG Medicine)</td><td>3 Years</td><td><span class="prog-tag">NEET PG</span></td></tr>
+          <tr><td>DM / MCh (Super Speciality)</td><td>3 Years</td><td><span class="prog-tag">NEET SS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px; color:var(--text-dim); margin-top:12px;">KIMS (Kalinga Institute of Medical Sciences) is ranked 30th in India by NIRF. Full hospital facility on campus.</p>
+  </div>
+
+  <!-- Other -->
+  <div class="tab-panel" id="tab-other">
+    <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:var(--radius-lg); overflow:hidden;">
+      <table class="prog-table">
+        <thead><tr><th>Program</th><th>School</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>B.Arch</td><td>Architecture &amp; Planning</td><td>5 Years</td></tr>
+          <tr><td>B.Sc. Biotechnology</td><td>Biotechnology</td><td>3 Years</td></tr>
+          <tr><td>B.Com (Hons.)</td><td>Humanities</td><td>3 Years</td></tr>
+          <tr><td>BA (Hons.) — Economics, English</td><td>Humanities</td><td>3 Years</td></tr>
+          <tr><td>B.Sc. Fashion Technology</td><td>Fashion Technology</td><td>3 Years</td></tr>
+          <tr><td>B.Sc. Mass Communication</td><td>Mass Communication</td><td>3 Years</td></tr>
+          <tr><td>B.Sc. Yoga &amp; Sports Sciences</td><td>Yoga &amp; Sports Sciences</td><td>3 Years</td></tr>
+          <tr><td>Ph.D. (All Disciplines)</td><td>Various Schools</td><td>3–5 Years</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="margin:0 80px;"></div>
+
+<!-- Grading System -->
+<section class="section">
+  <div class="section-label scroll-reveal">Grading System</div>
+  <h2 class="section-title scroll-reveal">KIIT <span style="color:var(--green)">Grade Structure</span></h2>
+  <p class="section-sub scroll-reveal" style="margin-bottom:40px;">KIIT follows a letter-grade system with 10-point CGPA scale. Here's how marks convert to grades:</p>
+
+  <div class="scroll-reveal" style="max-width:720px;">
+    <div class="grade-row">
+      <div class="grade-cell header">Marks Range</div>
+      <div class="grade-cell header">Grade</div>
+      <div class="grade-cell header">Grade Point</div>
+      <div class="grade-cell header">Remarks</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">90 – 100</div>
+      <div class="grade-cell grade-o">O</div>
+      <div class="grade-cell grade-o">10</div>
+      <div class="grade-cell grade-o">Outstanding</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">80 – 89</div>
+      <div class="grade-cell grade-a">E</div>
+      <div class="grade-cell grade-a">9</div>
+      <div class="grade-cell grade-a">Excellent</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">70 – 79</div>
+      <div class="grade-cell grade-a">A</div>
+      <div class="grade-cell grade-a">8</div>
+      <div class="grade-cell grade-a">Very Good</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">60 – 69</div>
+      <div class="grade-cell grade-b">B</div>
+      <div class="grade-cell grade-b">7</div>
+      <div class="grade-cell grade-b">Good</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">50 – 59</div>
+      <div class="grade-cell grade-c">C</div>
+      <div class="grade-cell grade-c">6</div>
+      <div class="grade-cell grade-c">Average</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">40 – 49</div>
+      <div class="grade-cell grade-c">D</div>
+      <div class="grade-cell grade-c">5</div>
+      <div class="grade-cell grade-c">Pass</div>
+    </div>
+    <div class="grade-row">
+      <div class="grade-cell">Below 40</div>
+      <div class="grade-cell grade-f">F</div>
+      <div class="grade-cell grade-f">0</div>
+      <div class="grade-cell grade-f">Fail</div>
+    </div>
+  </div>
+
+  <div style="margin-top:28px; padding:20px; background:var(--surface2); border:1px solid #00e87a30; border-radius:12px; max-width:720px;" class="scroll-reveal">
+    <div style="display:flex; gap:10px; align-items:flex-start;">
+      <span style="font-size:20px;">💡</span>
+      <div>
+        <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Attendance Policy</div>
+        <div style="font-size:13px; color:var(--text-muted); line-height:1.65;">
+          A minimum of <strong style="color:var(--green)">75% attendance</strong> is mandatory in each subject per semester to be eligible to appear in end-semester examinations. Students with less than 75% but above 65% may apply for a condonation of shortage on valid medical/personal grounds. Below 65% results in de-registration for that course.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Admissions -->
+<section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section-label scroll-reveal">Admissions</div>
+  <h2 class="section-title scroll-reveal">How to <span style="color:var(--green)">Join KIIT</span></h2>
+  <p class="section-sub scroll-reveal" style="margin-bottom:48px;">Admission to most programs is through KIITEE — KIIT's own entrance exam. Other national exams are also accepted.</p>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;">
+    <div class="step-cards scroll-reveal">
+      <div class="step-card"><div class="step-circle">1</div><div><div class="step-card-title">Register &amp; Apply Online</div><div class="step-card-desc">Visit kiit.ac.in and fill the online application form. Upload required documents: 10th &amp; 12th marksheets, photo, signature.</div></div></div>
+      <div class="step-card"><div class="step-circle">2</div><div><div class="step-card-title">Appear in KIITEE</div><div class="step-card-desc">KIITEE (KIIT Entrance Examination) is conducted online in multiple sessions. For B.Tech, JEE scores are also accepted. For MBA: CAT/MAT/XAT. For Law: KLSAT/CLAT.</div></div></div>
+      <div class="step-card"><div class="step-circle">3</div><div><div class="step-card-title">Merit List &amp; Counselling</div><div class="step-card-desc">Shortlisted candidates are called for counselling (online/offline) where they choose their preferred program and branch based on merit rank.</div></div></div>
+      <div class="step-card"><div class="step-circle">4</div><div><div class="step-card-title">Fee Payment &amp; Admission</div><div class="step-card-desc">Pay the admission fee online to confirm your seat. Complete document verification. Receive your student ID and report to campus.</div></div></div>
+    </div>
+    <div class="scroll-reveal delay-2">
+      <h3 style="font-family:var(--display); font-size:20px; margin-bottom:20px;">Key Eligibility Criteria</h3>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:18px;">
+          <div style="font-size:14px; font-weight:600; color:var(--green); margin-bottom:6px;">B.Tech</div>
+          <div style="font-size:13px; color:var(--text-muted);">60% aggregate in 10+2 with PCM. Valid KIITEE or JEE (Main) score.</div>
+        </div>
+        <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:18px;">
+          <div style="font-size:14px; font-weight:600; color:var(--green); margin-bottom:6px;">MBA</div>
+          <div style="font-size:13px; color:var(--text-muted);">50% aggregate in any Bachelor's degree. Valid CAT / MAT / XAT / CMAT / GMAT / ATMA score.</div>
+        </div>
+        <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:18px;">
+          <div style="font-size:14px; font-weight:600; color:var(--green); margin-bottom:6px;">Law (BA LLB)</div>
+          <div style="font-size:13px; color:var(--text-muted);">50% in 10+2 from recognised board. KLSAT or CLAT score. Age below 20 years (22 for SC/ST).</div>
+        </div>
+        <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:18px;">
+          <div style="font-size:14px; font-weight:600; color:var(--green); margin-bottom:6px;">MBBS / BDS</div>
+          <div style="font-size:13px; color:var(--text-muted);">50% in PCB in 10+2. Qualifying NEET UG score is mandatory.</div>
+        </div>
+        <div style="background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:18px;">
+          <div style="font-size:14px; font-weight:600; color:var(--green); margin-bottom:6px;">M.Tech</div>
+          <div style="font-size:13px; color:var(--text-muted);">B.Tech / BE in relevant discipline. GATE score accepted. KIITEE also conducted for M.Tech.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Research -->
+<section class="section">
+  <div class="section-label scroll-reveal">Research &amp; Innovation</div>
+  <h2 class="section-title scroll-reveal">Pioneering <span style="color:var(--green)">Research</span></h2>
+  <p class="section-sub scroll-reveal" style="margin-bottom:40px;">KIIT is the only private university in India with a dedicated Centre for Scientific Research, driving innovation across disciplines.</p>
+  <div class="grid-3 scroll-reveal">
+    <div class="card">
+      <div style="font-size:28px; margin-bottom:14px;">🔬</div>
+      <div style="font-size:16px; font-weight:600; margin-bottom:8px;">CARC</div>
+      <div style="font-size:13px; color:var(--text-muted); line-height:1.65;">Central Advanced Research Centre facilitates interdisciplinary research across technology, biotechnology, and medical sciences.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:28px; margin-bottom:14px;">🚀</div>
+      <div style="font-size:16px; font-weight:600; margin-bottom:8px;">KIIT-TBI</div>
+      <div style="font-size:13px; color:var(--text-muted); line-height:1.65;">Technology Business Incubator — one of India's leading incubators for deep-tech and biotech startups, recognized by DST, BIRAC &amp; NITI Aayog.</div>
+    </div>
+    <div class="card">
+      <div style="font-size:28px; margin-bottom:14px;">💰</div>
+      <div style="font-size:16px; font-weight:600; margin-bottom:8px;">Funded Research</div>
+      <div style="font-size:13px; color:var(--text-muted); line-height:1.65;">Research funded by DST, DAE, CSIR, AICTE, UGC, and DSIR. 48 doctoral fellowships instituted. MoUs with national and global research organizations.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="brand">KIIT<span>-GPT</span></div><p>Your AI-powered campus assistant for the KIIT community.</p></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="index.html">Home</a><a href="about.html">About KIIT</a><a href="academics.html">Academics</a><a href="placements.html">Placements</a><a href="contact.html">Contact</a></div>
+    <div class="footer-col"><h4>KIIT-GPT</h4><a href="chat.html">Open AI Chat</a></div>
+    <div class="footer-col"><h4>Contact</h4><p>Campus-7, KIIT University</p><p>Bhubaneswar, Odisha 751024</p></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Kalinga Institute of Industrial Technology</span><span>Built with <span class="heart">♥</span> for KIIT Community</span></div>
+</footer>
+
+
+<script src="main script.js"></script>
+<script>
+  // Tab system
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    });
+  });
+</script>
+</body>
+</html>

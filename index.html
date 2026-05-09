@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KIIT-GPT · AI Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ███ SIDEBAR ███ -->
+<aside class="sidebar" id="sidebar">
+
+  <div class="sidebar-brand">
+    <div class="brand-logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="14" fill="url(#lg1)"/>
+        <path d="M8 14l4 4 8-8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+          <linearGradient id="lg1" x1="0" y1="0" x2="28" y2="28">
+            <stop offset="0%" stop-color="#00e87a"/>
+            <stop offset="100%" stop-color="#00b85c"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div>
+        <div class="brand-name">KIIT<span>-GPT</span></div>
+        <div class="brand-tag">AI POWERED</div>
+      </div>
+    </div>
+    <button class="sidebar-close" id="sidebarClose">✕</button>
+  </div>
+
+  <!-- KIIT Logo -->
+  <div class="kiit-logo-wrap">
+  <img src="images/kiit_logo.png" alt="KIIT Logo" class="kiit-real-logo"/>  </div>data
+
+  <div class="sidebar-section-label">CONVERSATIONS</div>
+
+  <button class="btn-new-chat" id="newChatBtn">
+    <span class="btn-icon">＋</span> Start New Chat
+  </button>
+
+  <div class="search-box">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchHistory" placeholder="Search conversations..." autocomplete="off"/>
+  </div>
+
+  <div class="history-list" id="historyList"></div>
+
+  <div class="sidebar-footer">
+    <div class="footer-line">KIIT-GPT v1.0</div>
+    <div class="footer-line dim">Powered by RAG Technology</div>
+    <div class="footer-line dim">Built for KIIT Community</div>
+  </div>
+</aside>
+
+<!-- ███ MAIN ███ -->
+<div class="main" id="main">
+
+  <!-- Top nav -->
+  <nav class="topnav">
+    <button class="hamburger" id="openSidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="topnav-brand">KIIT<span>-GPT</span></div>
+    <div class="topnav-links">
+      <a href="#">Home</a>
+      <a href="#">About KIIT</a>
+      <a href="#">Academics</a>
+      <a href="#">Placements</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="icon-btn-sm" id="clearBtn" title="Clear chat">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    </button>
+  </nav>
+
+  <!-- Chat area -->
+  <div class="chat-area" id="chatArea">
+
+    <!-- Welcome / Home screen -->
+    <div class="home-screen" id="homeScreen">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          POWERED BY RAG TECHNOLOGY · AI ASSISTANT
+        </div>
+        <h1 class="hero-title">Your Smart Campus<br/><span class="green">AI Assistant</span></h1>
+        <p class="hero-sub">Ask anything about KIIT — from placements and hostels to academics and campus life. Get instant, accurate answers powered by retrieval-augmented AI.</p>
+
+        <div class="stats-row">
+          <div class="stat"><span class="stat-num">30K+</span><span class="stat-label">STUDENTS</span></div>
+          <div class="stat"><span class="stat-num">100+</span><span class="stat-label">PROGRAMS</span></div>
+          <div class="stat"><span class="stat-num">400+</span><span class="stat-label">RECRUITERS</span></div>
+          <div class="stat"><span class="stat-num">45</span><span class="stat-label">COUNTRIES</span></div>
+        </div>
+
+        <div class="category-pills">
+          <button class="pill" onclick="fillSuggestion(this)">🎓 Placements</button>
+          <button class="pill" onclick="fillSuggestion(this)">🏠 Hostel Info</button>
+          <button class="pill" onclick="fillSuggestion(this)">📚 Academics</button>
+          <button class="pill" onclick="fillSuggestion(this)">🏟 Facilities</button>
+          <button class="pill" onclick="fillSuggestion(this)">📝 Admissions</button>
+        </div>
+
+        <!-- Professor cards -->
+        <div class="prof-cards">
+          <div class="prof-card">
+            <img src="images/Samantha_image.png" alt="Prof. Achyuta Samanta" class="prof-img"/>            <div class="prof-info">
+              <div class="prof-name">Prof. Achyuta Samanta</div>
+              <div class="prof-role green">Founder, KIIT &amp; KISS</div>
+              <div class="prof-desc">Visionary Leader · Parliamentarian</div>
+            </div>
+          </div>
+          <div class="prof-card">
+            <img src="images/saumya_image.png" alt="Dr Soumya Ranjan Mishra" class="prof-img"/>
+            <div class="prof-info">
+              <div class="prof-name">Dr Soumya Ranjan Mishra</div>
+              <div class="prof-role green">Faculty Guide</div>
+              <div class="prof-desc">KIIT-GPT Project Supervisor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suggestion cards -->
+      <div class="cards-section">
+        <div class="cards-grid">
+          <button class="card" onclick="fillSuggestion(this)">
+            <div class="card-icon">📊</div>
+            <div class="card-text">What are KIIT's average placement packages?</div>
+          </button>
+          <button class="card" onclick="fillSuggestion(this)">
+            <div class="card-icon">🏠</div>
+            <div class="card-text">What are the hostel rules for first years?</div>
+          </button>
+          <button class="card" onclick="fillSuggestion(this)">
+            <div class="card-icon">📋</div>
+            <div class="card-text">How does the grading system work?</div>
+          </button>
+          <button class="card" onclick="fillSuggestion(this)">
+            <div class="card-icon">🏆</div>
+            <div class="card-text">What sports facilities are available?</div>
+          </button>
+          <button class="card" onclick="fillSuggestion(this)">
+            <div class="card-icon">🎯</div>
+            <div class="card-text">What grade do I get for 75 marks?</div>
+          </button>
+          <button class="card" onclick="fillSuggestion(this)">
+            <div class="card-icon">📅</div>
+            <div class="card-text">What is minimum attendance required?</div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" id="messages"></div>
+
+  </div>
+
+  <!-- Input bar -->
+  <div class="input-bar">
+    <div class="input-inner">
+      <textarea id="question" placeholder="Ask anything about KIIT..." rows="1"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="ask()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="input-footer">
+      <span>© 2026 Kalinga Institute of Industrial Technology, Bhubaneswar, Odisha</span>
+      <span>Built with ❤️ for the KIIT Community</span>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
